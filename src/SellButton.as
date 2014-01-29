@@ -1,0 +1,67 @@
+package  
+{
+	import flash.events.MouseEvent;
+	import flash.geom.ColorTransform;
+	import flash.text.TextField;
+	/**
+	 * ...
+	 * @author Danny Weitekamp
+	 */
+	public class SellButton extends Button
+	{
+		private var textField:TextField = new TextField
+		public var amount:Number
+		override protected function click(e:MouseEvent):void {
+			if (main.selectedItem is Block) {
+				var turret:Turret = Block(main.selectedItem).turret
+				main.money += amount
+				main.turrets.splice(main.turrets.indexOf(turret), 1)
+				main.turretCanvas.removeChild(turret)
+				turret.block.buildable = true
+				turret.block.turret = null
+				main.selectedItem = null
+			}
+		}
+		
+		override public function enable():void {
+			if(!active){
+				this.addEventListener(MouseEvent.MOUSE_OVER, lightUp)
+				this.addEventListener(MouseEvent.MOUSE_OUT, clear)
+				this.addEventListener(MouseEvent.MOUSE_DOWN, click, false)
+				this.transform.colorTransform = new ColorTransform()
+				active = true
+				addChild(textField)
+				
+				
+				
+				textField.x = 21
+				textField.y = 4
+				textField.scaleX = 1.2
+				textField.scaleY = 1
+				textField.textColor = 0xFFFF00
+				textField.mouseEnabled = false
+				if(main.selectedItem != null)resetText()
+				
+			}
+		}
+		public function resetText():void {
+			var turret:Turret = Block(main.selectedItem).turret
+			amount = turret.value * .9
+			amount = int(amount)
+			textField.text = "$" + amount
+		}
+		override public function disable():void {
+			if (active) {
+				this.removeChild(textField)
+				this.removeEventListener(MouseEvent.MOUSE_OVER, lightUp)
+				this.removeEventListener(MouseEvent.MOUSE_OUT, clear)
+				this.removeEventListener(MouseEvent.MOUSE_DOWN, click, false)
+				this.transform.colorTransform = new ColorTransform(1, 1, 1, 1, -50, -50, -50)
+				active = false
+			}
+		}
+		
+		
+	}
+
+}
