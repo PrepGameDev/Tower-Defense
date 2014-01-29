@@ -58,29 +58,39 @@ package
 			
 			var diffX:Number = 0
 			var diffY:Number = 0
-			if(target == null){
+			//trace(target)
+			if(target != null){
+				diffX = (target.x - this.x)
+				diffY = (target.y - this.y)
+				if (target.health <= 0) {
+					target = null
+					//trace("MOO")
+				}
+				if (diffX * diffX + diffY * diffY >= range * range) {
+					target = null
+				}
+				
+				
+			}
+			if (target == null) {
+				var minSqDist:Number = Number.POSITIVE_INFINITY
 				for (var i:int = 0; i < main.enemies.length; i++) {
 					var enemy:Enemy = main.enemies[i]
 					diffX = (enemy.x - this.x)
 					diffY = (enemy.y - this.y)
 					
-					if (diffX * diffX + diffY * diffY < range * range) {
-						target = enemy
+					var sqDist = diffX * diffX + diffY * diffY
+					if (sqDist < range * range) {
+						if (sqDist < minSqDist) {
+							target = enemy
+							minSqDist = sqDist
+						}
+						
 					}					
-					this.rotation = Math.atan2(diffY, diffX) * (180/Math.PI) + 90
+					
 				}
-			}else {
-				
-				diffX = (target.x - this.x)
-				diffY = (target.y - this.y)
-				
-				if (diffX * diffX + diffY * diffY < range * range) {
-					this.rotation = Math.atan2(diffY, diffX) * (180/Math.PI) + 90
-				}else {
-					target == null
-				}
-				if(target.health <=0) target = null
 			}
+			if(diffX*diffY != 0)this.rotation = Math.atan2(diffY, diffX) * (180/Math.PI) + 90
 			if(target != null){
 				if (diffX * diffX + diffY * diffY < range * range) {
 					if (timeOfLastShot + reload * 1000 < getTimer()) {
@@ -114,6 +124,7 @@ package
 			effectPower = p.effectPower
 			effectChance = p.effectChance
 			effectDuration = p.effectDuration
+			value = p.value
 			var index:int = (Settings.OBJ_INDEX++)
 			id = "0000"+ index
 		}

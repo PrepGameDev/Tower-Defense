@@ -18,6 +18,7 @@ package
 					turret.level++
 					turret.damage *= 1.5
 					turret.reload *= .9
+					turret.range *= 1.1
 					turret.armorPiercing *=1.5
 					turret.effectChance += .05
 					turret.effectDuration += .3

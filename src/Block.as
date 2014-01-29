@@ -31,6 +31,13 @@ package
 			}else if(char == "0"){
 				bitmapData = new Grass
 				buildable = true
+				//TODO: 3) B) Making a rock Tile.
+					//	Look at the three lines above they are a single piece to an else-if chain.
+					//	1.Copying those three lines as a template add another code-block to the chain
+					//	2.make the if condition: char == "r"
+					//	3.define bitmapData as a new instance of the class you defined in step A
+					//	4.make buildable true
+				
 			}else {
 				color = 0x00FF00
 				useBitmap = false

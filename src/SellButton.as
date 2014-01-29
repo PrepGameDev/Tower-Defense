@@ -16,7 +16,7 @@ package
 				var turret:Turret = Block(main.selectedItem).turret
 				main.money += amount
 				main.turrets.splice(main.turrets.indexOf(turret), 1)
-				main.turretCanvas.removeChild(turret)
+				main.backCanvas.removeChild(turret)
 				turret.block.buildable = true
 				turret.block.turret = null
 				main.selectedItem = null
