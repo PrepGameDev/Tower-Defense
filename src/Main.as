@@ -67,7 +67,7 @@ package
 				// When Space is pressed cycle through increasing speeds(1,2,5)
 				//Hint you will need an else-if chain
 		
-		public var timeSpeed:Number = 2
+		public var timeSpeed:Number = 1
 		public var timeStep:Number = 1000 / 30
 		public var time:Number = 0
 		
